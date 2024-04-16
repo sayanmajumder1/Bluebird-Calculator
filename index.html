@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Scientific Calculator</title>
+  <style>
+ body {
+      background-color: #f0f0f0; /* Set a light gray background color */
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .calculator {
+      background-color: #cbd4ce; /* Set a white background color for the calculator */
+      border-radius: 20px;
+      padding: 20px;
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1); /* Add a subtle shadow */
+      display: grid;
+      grid-template-columns: repeat(4, 80px);
+      grid-gap: 10px;
+      border: 2px solid #444; /* Add border property */
+    }
+
+    .display {
+      grid-column: 1 / -1;
+      background-color: #666;
+      color: #fff;
+      padding: 10px;
+      font-size: 24px;
+      text-align: right;
+      border-radius: 10px;
+      margin-bottom: 10px;
+    }
+
+    .button {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      border: none;
+      font-size: 18px;
+      background-color: #666;
+      color: #fff;
+      cursor: pointer;
+      transition: background-color 0.3s, transform 0.3s;
+      transform-style: preserve-3d;
+    }
+
+    .button:hover {
+      background-color: #888;
+      transform: translateY(4px);
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+    }
+
+    .history-dropdown {
+      position: relative;
+      display: inline-block;
+    }
+
+    .dropdown-button {
+      background-color: #333;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      padding: 8px 12px;
+      cursor: pointer;
+    }
+
+    .dropdown-button:hover {
+      background-color: #555;
+    }
+
+    .overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.7);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999; /* Ensure overlay is on top of everything */
+    }
+
+    .brand-name {
+      font-size: 32px;
+      margin-bottom: 20px;
+    }
+    
+
+    .calculator {
+      display: none; /* Initially hide the calculator */
+    }
+
+    @media only screen and (max-width: 768px) {
+      .calculator {
+        grid-template-columns: repeat(4, 60px);
+      }
+
+      .button {
+        width: 60px;
+        height: 60px;
+        font-size: 18px;
+      }
+
+      .display {
+        font-size: 20px;
+      }
+    }
+
+    @media only screen and (max-width: 480px) {
+      .calculator {
+        grid-template-columns: repeat(4, 40px);
+      }
+
+      .button {
+        width: 40px;
+        height: 40px;
+        font-size: 16px;
+      }
+
+      .display {
+        font-size: 18px;
+      }
+    }
+    body {
+      background-color: #f0f0f0; /* Set a light gray background color */
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .splash-content {
+      text-align: center;
+      color: white;
+      font-size: 24px;
+      max-width: 80%;
+      margin: auto;
+    }
+
+    .brand-name {
+      font-size: 32px;
+      margin-bottom: 20px;
+    }
+
+    .splash-content img {
+      max-width: 100%;
+      height: auto;
+      margin-bottom: 20px;
+    }
+
+    @media only screen and (max-width: 768px) {
+      .splash-content {
+        font-size: 20px;
+      }
+    }
+
+    @media only screen and (max-width: 480px) {
+      .splash-content {
+        font-size: 18px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="overlay" id="splashOverlay">
+    <div class="splash-content">
+        <div class="brand-name">Blue Bird</div>
+        <img src="image/u.png" alt="Scientific Calculator Image">
+        <h1>Welcome to Scientific Calculator</h1>
+        <p>Loading...</p>
+    </div>
+  </div>
+  <div class="history-dropdown">
+    <button class="dropdown-button">History</button>
+    <div class="history" id="history">
+    
+    </div>
+</div>
+  <div class="calculator"style="display: none;">
+    <div id="display" class="display">0</div>
+    <button class="button" onclick="appendToDisplay('7')">7</button>
+    <button class="button" onclick="appendToDisplay('8')">8</button>
+    <button class="button" onclick="appendToDisplay('9')">9</button>
+    <button class="button" onclick="appendToDisplay('/')">÷</button>
+    <button class="button" onclick="appendToDisplay('4')">4</button>
+    <button class="button" onclick="appendToDisplay('5')">5</button>
+    <button class="button" onclick="appendToDisplay('6')">6</button>
+    <button class="button" onclick="appendToDisplay('*')">x</button>
+    <button class="button" onclick="appendToDisplay('1')">1</button>
+    <button class="button" onclick="appendToDisplay('2')">2</button>
+    <button class="button" onclick="appendToDisplay('3')">3</button>
+    <button class="button" onclick="appendToDisplay('-')">-</button>
+    <button class="button" onclick="appendToDisplay('0')">0</button>
+    <button class="button" onclick="appendToDisplay('.')">.</button>
+    <button class="button" onclick="calculate()">=</button>
+    <button class="button" onclick="appendToDisplay('+')">+</button>
+    <button class="button" onclick="plusMinusFunc()">±</button>
+
+    <button class="button" onclick="clearDisplay()">AC</button>
+    <button class="button" onclick="delFunc()">del</button>
+    <button class="button" onclick="sinFunc()">sin</button>
+    <button class="button" onclick="cosFunc()">cos</button>
+    <button class="button" onclick="tanFunc()">tan</button> 
+    <!-- Add these buttons to your calculator div -->
+<button class="button" onclick="asinFunc()">sin⁻¹</button>
+<button class="button" onclick="acosFunc()">cos⁻¹</button>
+<button class="button" onclick="atanFunc()">tan⁻¹</button>   
+    <button class="button" onclick="lnFunc()">ln</button>
+    <button class="button" onclick="squareRoot()">√</button>
+    <button class="button" onclick="cubicRootFunc()">3√</button>
+    <button class="button" onclick="factorialFunc()">!</button>
+    <button class="button" onclick="squareFunc()">x²</button>
+<button class="button" onclick="cubeFunc()">x³</button>
+<button class="button" onclick="combinationFunc()">nCr</button>
+<button class="button" onclick="permutationFunc()">nPr</button>
+<button class="button" onclick="piFunc()">π</button>
+    <button class="button" onclick="appendToDisplay(')')">)</button>
+  </div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/9.5.0/math.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
