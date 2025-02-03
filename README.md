@@ -1,12 +1,10 @@
-Here’s a well-structured **README.md** for your **Bluebird Calculator** project.  
 
----
 
 # 🧮 **Bluebird Calculator**  
 
 > **A Simple and Stylish Web-Based Calculator**  
 
-![Bluebird Calculator](assets/calculator-banner.png)  
+![Bluebird Calculator](image/cal.png)  
 
 ---
 
@@ -25,7 +23,7 @@ Here’s a well-structured **README.md** for your **Bluebird Calculator** projec
 
 | Calculator Interface |
 |----------------------|
-| ![Calculator UI](assets/calculator-ui.png) |
+| ![Calculator UI](image/cal.png) |
 
 ---
 
