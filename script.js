@@ -175,6 +175,17 @@ function cubicRoot(num) {
     currentInput += '∛(';
     display.innerText = currentInput;
   }
+
+  // Function to calculate exponential value of a number
+function expFunc() {
+    currentInput += 'e';
+    display.innerText = currentInput.replace('e', Math.E);
+  }
+  // Function to append exponential symbol to the display
+function exponentialFunc() {
+    currentInput += 'e^(';
+    display.innerText = currentInput;
+  }
  // JavaScript to hide splash screen after a delay
  window.addEventListener('load', function () {
   var splashOverlay = document.getElementById('splashOverlay');
