@@ -3,140 +3,35 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Scientific Calculator</title>
-  <style>
-    body {
-      background-color: #f0f0f0; 
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      margin: 0;
-    }
+  <title>Scientific Calculator - Advanced Math Tool</title>
+   <meta name="title" content="Blue Bird Scientific Calculator - Advanced Math Tool">
+    <meta name="description" content="Free online scientific calculator with advanced functions: trigonometry, logarithms, permutations, combinations, and more. Perfect for students and professionals.">
+     <meta name="keywords" content="scientific calculator, online calculator, math tool, trigonometry calculator, logarithm calculator, factorial calculator, nCr calculator, nPr calculator, Sayan Majumder, Purba Bardhaman, Memari, Sayan Majumder Purba Bardhaman, Sayan Majumder Android and Web Devoloper , Android and Web Devoloper, West Bengal , Burdwan Institue Of Management and Computer Science , BIMS">
+     <meta name="author" content="Blue Bird || Sayan Majumder">
+      <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://bluebird.github.io/scientific-calculator/">
+  <meta property="og:title" content="Blue Bird Scientific Calculator - Advanced Math Tool">
+  <meta property="og:description" content="Free online scientific calculator with advanced functions: trigonometry, logarithms, permutations, combinations, and more.">
+  <meta property="og:image" content="https://bluebird.github.io/scientific-calculator/image/u.png">
+<!-- Twitter -->
+  <meta property="twitter:card" content="summary_large_image">
+  <meta property="twitter:url" content="https://bluebird.github.io/scientific-calculator/">
+  <meta property="twitter:title" content="Blue Bird Scientific Calculator - Advanced Math Tool">
+  <meta property="twitter:description" content="Free online scientific calculator with advanced functions: trigonometry, logarithms, permutations, combinations, and more.">
+  <meta property="twitter:image" content="https://bluebird.github.io/scientific-calculator/image/u.png">
 
-    .calculator {
-      background-color: #cbd4ce; 
-      border-radius: 20px;
-      padding: 20px;
-      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1); 
-      display: grid;
-      grid-template-columns: repeat(4, 80px);
-      grid-gap: 10px;
-      border: 2px solid #444; 
-      position: relative; 
-    }
+    <!-- Canonical URL -->
+  <link rel="canonical" href="https://bluebird.github.io/scientific-calculator/">
 
-    .display {
-      grid-column: 1 / -1;
-      background-color: #666;
-      color: #fff;
-      padding: 10px;
-      font-size: 24px;
-      text-align: right;
-      border-radius: 10px;
-      margin-bottom: 10px;
-    }
+  <meta name="robots" content="index, follow">
+  <link href="Asset/style.css" rel="stylesheet">
+    <link rel="alternate" type="application/ld+json" href="JS/schema.json">
 
-    .button {
-      width: 60px;
-      height: 60px;
-      border-radius: 50%;
-      border: none;
-      font-size: 18px;
-      background-color: #666;
-      color: #fff;
-      cursor: pointer;
-      transition: background-color 0.3s, transform 0.3s;
-      transform-style: preserve-3d;
-    }
-
-    .button:hover {
-      background-color: #888;
-      transform: translateY(4px);
-      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
-    }
-
-    .history {
-      display: none; 
-      position: absolute;
-      top: 85px; 
-      left: 20px;
-      right: 20px;
-      bottom: 20px; 
-      background-color: #cbd4ce; 
-      border: 2px solid #444;
-      border-radius: 10px;
-      padding: 15px;
-      overflow-y: auto;
-      z-index: 1000;
-      box-shadow: 0 8px 16px rgba(0,0,0,0.4);
-    }
-
-    .history.active {
-      display: block; 
-    }
-
-    #history-list div {
-      padding: 8px 0;
-      border-bottom: 1px solid #999;
-      color: #333;
-      font-family: sans-serif;
-      font-size: 15px;
-    }
-
-    .overlay {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background-color: rgba(0, 0, 0, 0.7);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      z-index: 9999; 
-    }
-
-    .brand-name {
-      font-size: 32px;
-      margin-bottom: 20px;
-    }
-
-    @media only screen and (max-width: 768px) {
-      .calculator { grid-template-columns: repeat(4, 60px); }
-      .button { width: 60px; height: 60px; font-size: 18px; }
-      .display { font-size: 20px; }
-    }
-
-    @media only screen and (max-width: 480px) {
-      .calculator { grid-template-columns: repeat(4, 40px); }
-      .button { width: 40px; height: 40px; font-size: 16px; }
-      .display { font-size: 18px; }
-    }
-
-    .splash-content {
-      text-align: center;
-      color: white;
-      font-size: 24px;
-      max-width: 80%;
-      margin: auto;
-    }
-
-    .splash-content img {
-      max-width: 100%;
-      height: auto;
-      margin-bottom: 20px;
-    }
-
-    @media only screen and (max-width: 768px) {
-      .splash-content { font-size: 20px; }
-    }
-
-    @media only screen and (max-width: 480px) {
-      .splash-content { font-size: 18px; }
-    }
-  </style>
 </head>
+
+
+
 <body>
   <div class="overlay" id="splashOverlay">
     <div class="splash-content">
@@ -182,7 +77,7 @@
     
     <button class="button" onclick="plusMinusFunc()">±</button>
 
-    <button class="button" onclick="expFunc()">e</button>
+    <!-- Contribute By  Nandan Mukherjee-->
     <button class="button" onclick="exponentialFunc()">e^</button>
 
 
@@ -208,15 +103,15 @@
     <button class="button" onclick="permutationFunc()">nPr</button>
     <button class="button" onclick="piFunc()">π</button>
     <button class="button" onclick="appendToDisplay(')')">)</button>
+    <!--COntribute By Shubhodeep Laha-->
     <button class="button" onclick="toggleHistory()">His</button>
 
     <button class="button" style="font-size: 15px;" onclick="undoFunc()">Undo</button>
     <button class="button" style="font-size: 15px;" onclick="redoFunc()">Redo</button>
     <button class="button" onclick="appendToDisplay('(')">(</button>
-    <button class="button" onclick="eFunc()">e</button>
+    
   </div>
-  
   <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/9.5.0/math.js"></script>
-  <script src="script.js"></script>
+  <script src="JS/script.js"></script>
 </body>
 </html>
