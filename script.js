@@ -1,154 +1,133 @@
 let display = document.getElementById('display');
-let historyDisplay = document.getElementById('history');
+let historyList = document.getElementById('history-list');
 let currentInput = '';
 let history = [];
 
+// NEW: Arrays to track our history states
+let undoStack = [];
+let redoStack = [];
+
+// NEW: Core engine for Undo/Redo tracking
+function updateState(newValue) {
+  if (currentInput !== newValue) {
+    undoStack.push(currentInput);
+    redoStack = []; // Clears redo path if user makes a new choice
+    currentInput = newValue;
+    display.innerText = currentInput || '0';
+  }
+}
+
+// NEW: Undo Logic
+function undoFunc() {
+  if (undoStack.length > 0) {
+    redoStack.push(currentInput);
+    currentInput = undoStack.pop();
+    display.innerText = currentInput || '0';
+  }
+}
+
+// NEW: Redo Logic
+function redoFunc() {
+  if (redoStack.length > 0) {
+    undoStack.push(currentInput);
+    currentInput = redoStack.pop();
+    display.innerText = currentInput || '0';
+  }
+}
+
+function toggleHistory() {
+  const historyPanel = document.getElementById('history');
+  historyPanel.classList.toggle('active');
+}
+
 function appendToDisplay(value) {
-  currentInput += value;
-  display.innerText = currentInput;
+  updateState(currentInput + value);
 }
 
 function calculate() {
-    try {
-      let result;
-      if (currentInput.includes('C')) {
-        // Extract n and r from the current input
-        const [n, r] = currentInput.split('C');
-        result = combination(parseInt(n), parseInt(r));
-      } else if (currentInput.includes('P')) {
-        // Extract n and r from the current input
-        const [n, r] = currentInput.split('P');
-        result = permutation(parseInt(n), parseInt(r));
-      } else if (currentInput.includes('∛')) {
-        // Extract the number inside the cubic root
-        const num = currentInput.slice(currentInput.indexOf('(') + 1, currentInput.indexOf(')'));
-        result = cubicRoot(parseFloat(num));
-      } else {
-        result = math.evaluate(currentInput);
-      }
-      display.innerText = result;
-      history.push(currentInput + ' = ' + result); // Store calculation in history
-      updateHistory(); // Update history display
-      currentInput = '';
-    } catch (error) {
-      display.innerText = 'Error';
-      currentInput = '';
-    }
-  }
-  // Function to toggle between positive and negative sign
-function plusMinusFunc() {
-    // Check if the current input is empty or already has a negative sign
-    if (currentInput === '' || currentInput[0] === '-') {
-      // If empty or already negative, remove the negative sign or append it
-      currentInput = currentInput.slice(1);
+  try {
+    let result;
+    if (currentInput.includes('C')) {
+      const [n, r] = currentInput.split('C');
+      result = combination(parseInt(n), parseInt(r));
+    } else if (currentInput.includes('P')) {
+      const [n, r] = currentInput.split('P');
+      result = permutation(parseInt(n), parseInt(r));
+    } else if (currentInput.includes('∛')) {
+      const num = currentInput.slice(currentInput.indexOf('(') + 1, currentInput.indexOf(')'));
+      result = cubicRoot(parseFloat(num));
     } else {
-      // If positive, add a negative sign to the beginning
-      currentInput = '-' + currentInput;
+      result = math.evaluate(currentInput);
     }
-    // Update the display with the new input
-    display.innerText = currentInput;
+    
+    let stringResult = result.toString();
+    history.push(currentInput + ' = ' + stringResult); 
+    updateHistory(); 
+    
+    // Save state after calculating
+    updateState(stringResult);
+  } catch (error) {
+    display.innerText = 'Error';
+    currentInput = '';
   }
+}
+
+function plusMinusFunc() {
+  let tempInput;
+  if (currentInput === '' || currentInput[0] === '-') {
+    tempInput = currentInput.slice(1);
+  } else {
+    tempInput = '-' + currentInput;
+  }
+  updateState(tempInput);
+}
   
 function clearDisplay() {
-  display.innerText = '0';
-  currentInput = '';
-}
-
-function squareRoot() {
-  currentInput += 'sqrt(';
-  display.innerText = currentInput;
-}
-
-// Trigonometric functions
-function sinFunc() {
-  currentInput += 'sin(';
-  display.innerText = currentInput;
-}
-
-function cosFunc() {
-  currentInput += 'cos(';
-  display.innerText = currentInput;
-}
-
-function tanFunc() {
-  currentInput += 'tan(';
-  display.innerText = currentInput;
-}
-// Add these functions to your script.js file
-
-// Inverse trigonometric functions
-function asinFunc() {
-    currentInput += 'asin(';
-    display.innerText = currentInput;
-  }
-  
-  function acosFunc() {
-    currentInput += 'acos(';
-    display.innerText = currentInput;
-  }
-  
-  function atanFunc() {
-    currentInput += 'atan(';
-    display.innerText = currentInput;
-  }
-  
-function lnFunc() {
-  currentInput += 'log(';
-  display.innerText = currentInput;
+  updateState('');
+  document.getElementById('history').classList.remove('active');
 }
 
 function delFunc() {
-  currentInput = currentInput.slice(0, -1); // Remove the last character
-  display.innerText = currentInput;
+  updateState(currentInput.slice(0, -1));
+  document.getElementById('history').classList.remove('active');
 }
 
-// Factorial function
+function updateHistory() {
+  historyList.innerHTML = ''; 
+  history.forEach((calculation, index) => {
+    historyList.innerHTML += `<div>${index + 1}. ${calculation}</div>`;
+  });
+}
+
+function squareRoot() { updateState(currentInput + 'sqrt('); }
+function sinFunc() { updateState(currentInput + 'sin('); }
+function cosFunc() { updateState(currentInput + 'cos('); }
+function tanFunc() { updateState(currentInput + 'tan('); }
+function asinFunc() { updateState(currentInput + 'asin('); }
+function acosFunc() { updateState(currentInput + 'acos('); }
+function atanFunc() { updateState(currentInput + 'atan('); }
+function lnFunc() { updateState(currentInput + 'log('); }
+
 function factorial(num) {
-  if (num === 0 || num === 1) {
-    return 1;
-  } else {
-    return num * factorial(num - 1);
-  }
+  if (num === 0 || num === 1) { return 1; } 
+  else { return num * factorial(num - 1); }
 }
 
-// Function to append factorial symbol to the display
-function factorialFunc() {
-  currentInput += '!';
-  display.innerText = currentInput;
-}
+function factorialFunc() { updateState(currentInput + '!'); }
+function square(num) { return num * num; }
+function cube(num) { return num * num * num; }
+function squareFunc() { updateState(currentInput + '^2'); }
+function cubeFunc() { updateState(currentInput + '^3'); }
+function combination(n, r) { return factorial(n) / (factorial(r) * factorial(n - r)); }
+function permutation(n, r) { return factorial(n) / factorial(n - r); }
+function combinationFunc() { updateState(currentInput + 'C'); }
+function permutationFunc() { updateState(currentInput + 'P'); }
 
-// Function to calculate square
-function square(num) {
-  return num * num;
-}
+function piFunc() { updateState(currentInput + Math.PI.toFixed(8)); }
+function eFunc() { updateState(currentInput + Math.E.toFixed(8)); } // The new e button logic
 
-// Function to calculate cube
-function cube(num) {
-  return num * num * num;
-}
-
-// Function to append square symbol to the display
-function squareFunc() {
-  currentInput += '^2';
-  display.innerText = currentInput;
-}
-
-// Function to append cube symbol to the display
-function cubeFunc() {
-  currentInput += '^3';
-  display.innerText = currentInput;
-}
-
-
-// Combination (nCr) function
-function combination(n, r) {
-  return factorial(n) / (factorial(r) * factorial(n - r));
-}
-
-// Permutation (nPr) function
-function permutation(n, r) {
-  return factorial(n) / factorial(n - r);
-}
+function cubicRoot(num) { return Math.cbrt(num); }
+function cubicRootFunc() { updateState(currentInput + '∛('); }
 
 // Function to append nCr symbol to the display
 function combinationFunc() {
@@ -188,18 +167,11 @@ function exponentialFunc() {
   }
  // JavaScript to hide splash screen after a delay
  window.addEventListener('load', function () {
+window.addEventListener('load', function () {
   var splashOverlay = document.getElementById('splashOverlay');
   var calculator = document.querySelector('.calculator');
-
-  // Hide the splash screen after 2 seconds
   setTimeout(function () {
       splashOverlay.style.display = 'none';
-      calculator.style.display = 'grid'; // Show the calculator
-  }, 5000); // Adjust the delay as needed
+      calculator.style.display = 'grid'; 
+  }, 5000); 
 });
-function updateHistory() {
-  historyDisplay.innerHTML = '';
-  history.forEach((calculation, index) => {
-    historyDisplay.innerHTML += `<div>${index + 1}. ${calculation}</div>`;
-  });
-}
