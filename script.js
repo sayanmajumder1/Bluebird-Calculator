@@ -129,6 +129,44 @@ function eFunc() { updateState(currentInput + Math.E.toFixed(8)); } // The new e
 function cubicRoot(num) { return Math.cbrt(num); }
 function cubicRootFunc() { updateState(currentInput + '∛('); }
 
+// Function to append nCr symbol to the display
+function combinationFunc() {
+  currentInput += 'C';
+  display.innerText = currentInput;
+}
+
+// Function to append nPr symbol to the display
+function permutationFunc() {
+  currentInput += 'P';
+  display.innerText = currentInput;
+}
+function piFunc() {
+    currentInput += 'pi';
+    display.innerText = currentInput.replace('pi', Math.PI);
+  }
+  // Function to calculate cubic root
+function cubicRoot(num) {
+    return Math.cbrt(num);
+  }
+  
+  // Function to append cubic root symbol to the display
+  function cubicRootFunc() {
+    currentInput += '∛(';
+    display.innerText = currentInput;
+  }
+
+  // Function to calculate exponential value of a number
+function expFunc() {
+    currentInput += 'e';
+    display.innerText = currentInput.replace('e', Math.E);
+  }
+  // Function to append exponential symbol to the display
+function exponentialFunc() {
+    currentInput += 'e^(';
+    display.innerText = currentInput;
+  }
+ // JavaScript to hide splash screen after a delay
+ window.addEventListener('load', function () {
 window.addEventListener('load', function () {
   var splashOverlay = document.getElementById('splashOverlay');
   var calculator = document.querySelector('.calculator');
