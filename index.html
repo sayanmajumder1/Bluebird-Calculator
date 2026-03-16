@@ -5,8 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Scientific Calculator</title>
   <style>
- body {
-      background-color: #f0f0f0; /* Set a light gray background color */
+    body {
+      background-color: #f0f0f0; 
       display: flex;
       justify-content: center;
       align-items: center;
@@ -15,14 +15,15 @@
     }
 
     .calculator {
-      background-color: #cbd4ce; /* Set a white background color for the calculator */
+      background-color: #cbd4ce; 
       border-radius: 20px;
       padding: 20px;
-      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1); /* Add a subtle shadow */
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1); 
       display: grid;
       grid-template-columns: repeat(4, 80px);
       grid-gap: 10px;
-      border: 2px solid #444; /* Add border property */
+      border: 2px solid #444; 
+      position: relative; 
     }
 
     .display {
@@ -55,22 +56,32 @@
       box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
     }
 
-    .history-dropdown {
-      position: relative;
-      display: inline-block;
+    .history {
+      display: none; 
+      position: absolute;
+      top: 85px; 
+      left: 20px;
+      right: 20px;
+      bottom: 20px; 
+      background-color: #cbd4ce; 
+      border: 2px solid #444;
+      border-radius: 10px;
+      padding: 15px;
+      overflow-y: auto;
+      z-index: 1000;
+      box-shadow: 0 8px 16px rgba(0,0,0,0.4);
     }
 
-    .dropdown-button {
-      background-color: #333;
-      color: #fff;
-      border: none;
-      border-radius: 5px;
-      padding: 8px 12px;
-      cursor: pointer;
+    .history.active {
+      display: block; 
     }
 
-    .dropdown-button:hover {
-      background-color: #555;
+    #history-list div {
+      padding: 8px 0;
+      border-bottom: 1px solid #999;
+      color: #333;
+      font-family: sans-serif;
+      font-size: 15px;
     }
 
     .overlay {
@@ -83,57 +94,24 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      z-index: 9999; /* Ensure overlay is on top of everything */
+      z-index: 9999; 
     }
 
     .brand-name {
       font-size: 32px;
       margin-bottom: 20px;
     }
-    
-
-    .calculator {
-      display: none; /* Initially hide the calculator */
-    }
 
     @media only screen and (max-width: 768px) {
-      .calculator {
-        grid-template-columns: repeat(4, 60px);
-      }
-
-      .button {
-        width: 60px;
-        height: 60px;
-        font-size: 18px;
-      }
-
-      .display {
-        font-size: 20px;
-      }
+      .calculator { grid-template-columns: repeat(4, 60px); }
+      .button { width: 60px; height: 60px; font-size: 18px; }
+      .display { font-size: 20px; }
     }
 
     @media only screen and (max-width: 480px) {
-      .calculator {
-        grid-template-columns: repeat(4, 40px);
-      }
-
-      .button {
-        width: 40px;
-        height: 40px;
-        font-size: 16px;
-      }
-
-      .display {
-        font-size: 18px;
-      }
-    }
-    body {
-      background-color: #f0f0f0; /* Set a light gray background color */
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      margin: 0;
+      .calculator { grid-template-columns: repeat(4, 40px); }
+      .button { width: 40px; height: 40px; font-size: 16px; }
+      .display { font-size: 18px; }
     }
 
     .splash-content {
@@ -144,11 +122,6 @@
       margin: auto;
     }
 
-    .brand-name {
-      font-size: 32px;
-      margin-bottom: 20px;
-    }
-
     .splash-content img {
       max-width: 100%;
       height: auto;
@@ -156,15 +129,11 @@
     }
 
     @media only screen and (max-width: 768px) {
-      .splash-content {
-        font-size: 20px;
-      }
+      .splash-content { font-size: 20px; }
     }
 
     @media only screen and (max-width: 480px) {
-      .splash-content {
-        font-size: 18px;
-      }
+      .splash-content { font-size: 18px; }
     }
   </style>
 </head>
@@ -177,52 +146,71 @@
         <p>Loading...</p>
     </div>
   </div>
-  <div class="history-dropdown">
-    <button class="dropdown-button">History</button>
-    <div class="history" id="history">
+
+  <div class="calculator" style="display: none;">
     
+    <div class="history" id="history">
+      <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #666; padding-bottom: 5px; margin-bottom: 10px;">
+        <strong style="color: #333; font-size: 18px; font-family: sans-serif;">History</strong>
+        <button onclick="toggleHistory()" style="background: none; border: none; font-size: 28px; color: #333; cursor: pointer; padding: 0 5px; line-height: 1;">&times;</button>
+      </div>
+      <div id="history-list">
+        <div style="color: #666; font-style: italic; font-size: 14px;">No calculations yet</div>
+      </div>
     </div>
-</div>
-  <div class="calculator"style="display: none;">
+
     <div id="display" class="display">0</div>
     <button class="button" onclick="appendToDisplay('7')">7</button>
     <button class="button" onclick="appendToDisplay('8')">8</button>
     <button class="button" onclick="appendToDisplay('9')">9</button>
     <button class="button" onclick="appendToDisplay('/')">÷</button>
+    
     <button class="button" onclick="appendToDisplay('4')">4</button>
     <button class="button" onclick="appendToDisplay('5')">5</button>
     <button class="button" onclick="appendToDisplay('6')">6</button>
     <button class="button" onclick="appendToDisplay('*')">x</button>
+    
     <button class="button" onclick="appendToDisplay('1')">1</button>
     <button class="button" onclick="appendToDisplay('2')">2</button>
     <button class="button" onclick="appendToDisplay('3')">3</button>
     <button class="button" onclick="appendToDisplay('-')">-</button>
+    
     <button class="button" onclick="appendToDisplay('0')">0</button>
     <button class="button" onclick="appendToDisplay('.')">.</button>
     <button class="button" onclick="calculate()">=</button>
     <button class="button" onclick="appendToDisplay('+')">+</button>
+    
     <button class="button" onclick="plusMinusFunc()">±</button>
-
     <button class="button" onclick="clearDisplay()">AC</button>
     <button class="button" onclick="delFunc()">del</button>
     <button class="button" onclick="sinFunc()">sin</button>
+    
     <button class="button" onclick="cosFunc()">cos</button>
     <button class="button" onclick="tanFunc()">tan</button> 
-    <!-- Add these buttons to your calculator div -->
-<button class="button" onclick="asinFunc()">sin⁻¹</button>
-<button class="button" onclick="acosFunc()">cos⁻¹</button>
-<button class="button" onclick="atanFunc()">tan⁻¹</button>   
+    <button class="button" onclick="asinFunc()">sin⁻¹</button>
+    <button class="button" onclick="acosFunc()">cos⁻¹</button>
+    
+    <button class="button" onclick="atanFunc()">tan⁻¹</button>   
     <button class="button" onclick="lnFunc()">ln</button>
     <button class="button" onclick="squareRoot()">√</button>
     <button class="button" onclick="cubicRootFunc()">3√</button>
+    
     <button class="button" onclick="factorialFunc()">!</button>
     <button class="button" onclick="squareFunc()">x²</button>
-<button class="button" onclick="cubeFunc()">x³</button>
-<button class="button" onclick="combinationFunc()">nCr</button>
-<button class="button" onclick="permutationFunc()">nPr</button>
-<button class="button" onclick="piFunc()">π</button>
+    <button class="button" onclick="cubeFunc()">x³</button>
+    <button class="button" onclick="combinationFunc()">nCr</button>
+    
+    <button class="button" onclick="permutationFunc()">nPr</button>
+    <button class="button" onclick="piFunc()">π</button>
     <button class="button" onclick="appendToDisplay(')')">)</button>
+    <button class="button" onclick="toggleHistory()">His</button>
+
+    <button class="button" style="font-size: 15px;" onclick="undoFunc()">Undo</button>
+    <button class="button" style="font-size: 15px;" onclick="redoFunc()">Redo</button>
+    <button class="button" onclick="appendToDisplay('(')">(</button>
+    <button class="button" onclick="eFunc()">e</button>
   </div>
+  
   <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/9.5.0/math.js"></script>
   <script src="script.js"></script>
 </body>
