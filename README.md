@@ -1,6 +1,6 @@
 
 
-# 🧮 **Bluebird Calculato**  
+# 🧮 **Bluebird Calculator**  
 
 > **A Simple and Stylish Web-Based Calculator**  
 
