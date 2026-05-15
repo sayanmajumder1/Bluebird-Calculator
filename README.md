@@ -1,7 +1,6 @@
 
 
 # 🧮 **Bluebird Calculator**  
-
 > **A Simple and Stylish Web-Based Calculator**  
 
 ![Bluebird Calculator](image/cal.png)  
