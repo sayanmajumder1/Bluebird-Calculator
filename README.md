@@ -1,13 +1,13 @@
 
 
-# 🧮 **Bluebird Calculator**  
+# 🧮 **Web Calculator**  
 > **A Simple and Stylish Web-Based Calculator**  
 
 ![Bluebird Calculator](image/cal.png)  
 
 ---
 
-## 🌟 **About Bluebird Calculator**  
+## 🌟 **About Web Calculator**  
 
 **Bluebird Calculator** is a sleek and user-friendly web-based calculator designed for everyday calculations. Built with **HTML, CSS, and JavaScript**, it provides a smooth and responsive experience, making it perfect for quick mathematical operations.  
 
@@ -67,7 +67,7 @@
    ```
 2. **Navigate to the project folder:**  
    ```bash
-   cd Bluebird-Calculator
+   cd Web-Calculator
    ```
 3. **Open `index.html` in a browser:**  
    ```bash
@@ -79,7 +79,7 @@
 
 ## 🤝 **Contributing**  
 
-Want to improve **Bluebird Calculator**? Follow these steps:  
+Want to improve **Web Calculator**? Follow these steps:  
 
 1. **Fork** the repository  
 2. **Clone** your fork  
