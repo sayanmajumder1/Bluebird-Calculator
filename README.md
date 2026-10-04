@@ -9,7 +9,7 @@
 
 ## 🌟 **About Web Calculator**  
 
-**Bluebird Calculator** is a sleek and user-friendly web-based calculator designed for everyday calculations. Built with **HTML, CSS, and JavaScript**, it provides a smooth and responsive experience, making it perfect for quick mathematical operations.  
+**Web Calculator** is a sleek and user-friendly web-based calculator designed for everyday calculations. Built with **HTML, CSS, and JavaScript**, it provides a smooth and responsive experience, making it perfect for quick mathematical operations.  
 
 🔹 **Simple & Clean UI**  
 🔹 **Basic Arithmetic Operations (+, -, ×, ÷)**  
