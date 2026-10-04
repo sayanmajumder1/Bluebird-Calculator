@@ -28,7 +28,7 @@
 
 ## 🚀 **Live Demo**  
 
-🔗 **Try it here:** [Bluebird Calculator](https://sayanmajumder1.github.io/Bluebird-Calculator/)  
+🔗 **Try it here:** [Web Calculator](https://sayanmajumder1.github.io/Bluebird-Calculator/)  
 
 ---
 
